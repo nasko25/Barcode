@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.SparseArray;
@@ -20,12 +21,14 @@ import java.io.IOException;
 
 public class ScanBarcodeActivity extends Activity {
     SurfaceView camera_preview;
-
+    int width = Resources.getSystem().getDisplayMetrics().widthPixels;
+    int height = Resources.getSystem().getDisplayMetrics().heightPixels;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
 
+        camera_preview = new SurfaceView(this, null, width, height);
         camera_preview = (SurfaceView) findViewById(R.id.camera_preview);
         createCameraSource();
     }
@@ -48,6 +51,7 @@ public class ScanBarcodeActivity extends Activity {
                 }
                 try {
                     cameraSource.start(camera_preview.getHolder());
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
