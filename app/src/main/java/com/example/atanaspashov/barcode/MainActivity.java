@@ -1,6 +1,7 @@
 package com.example.atanaspashov.barcode;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
-        tv.setText(tv.getText() + " and from Java :O");
+        // tv.setText(stringFromJNI());
+        tv.setText(" Hello This is a Barcode scanner ");
         //https://stackoverflow.com/questions/44842887/how-to-access-a-java-variable-in-strings-xml
 
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     barcodeResult.setText("Barcode value: " + barcode.displayValue);
                 }
                 else {
-                    barcodeResult.setText("No Barcpde Found");
+                    barcodeResult.setText("No Barcode Found");
                 }
             }
 
@@ -66,4 +67,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-}
+
+    private class GetData extends AsyncTask<String, String, String> {
+
+        // JDBC driver name and database URL
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
+    }
+
+} // end of MainActivity outer class
