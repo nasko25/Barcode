@@ -1,6 +1,7 @@
 package com.example.atanaspashov.barcode;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class MainActivity extends AppCompatActivity {
     TextView barcodeResult;
@@ -71,9 +76,32 @@ public class MainActivity extends AppCompatActivity {
     private class GetData extends AsyncTask<String, String, String> {
 
         // JDBC driver name and database URL
+        static final String JDBC_Driver = "com.mysql.jdbc.Driver";
+        static final String DB_URL = "jdbc:mysql://" + DB_Strings.database_URL + "/" + DB_Strings.database_NAME;
+
+        @Override
+        protected void onPreExecute() {
+            // someTextView.setText("Connecting to DB");
+        }
+
 
         @Override
         protected String doInBackground(String... strings) {
+            Connection conn = null;
+            Statement stmt = null;  // SELECT * FROM table;
+
+            try {
+                Class.forName(JDBC_Driver);
+                conn = DriverManager.getConnection(DB_URL, DB_Strings.username, DB_Strings.password);
+
+                stmt = conn.createStatement();
+                String sql_request = "SELECT * FROM codes";
+            } catch (java.sql.SQLException connExcept) {
+                connExcept.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
             return null;
         }
     }
