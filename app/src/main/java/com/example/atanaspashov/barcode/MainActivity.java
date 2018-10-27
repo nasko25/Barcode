@@ -3,8 +3,10 @@ package com.example.atanaspashov.barcode;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;      // TODO temporary; remove when not needed
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,10 +16,13 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     TextView barcodeResult;
+    Map<String, String> codesMap;
     public String buttonName = "button";
 
     // Used to load the 'native-lib' library on application startup.
@@ -63,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
+                    GetData getData = new GetData();
+                    if(Build.VERSION.SDK_INT >= 11/*HONEYCOMB*/) {
+                        getData.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        getData.execute();
+                    }
                 }
             }
 
@@ -82,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             // someTextView.setText("Connecting to DB");
+            super.onPreExecute();
         }
 
 
@@ -96,11 +108,37 @@ public class MainActivity extends AppCompatActivity {
 
                 stmt = conn.createStatement();
                 String sql_request = "SELECT * FROM codes";
+                ResultSet rs = stmt.executeQuery(sql_request);
+
+                while(rs.next()) // while it has a next result
+                {
+                    String type = rs.getString("type"); // type is the name of the column
+                    String description = "";
+                    Log.d("cow", "Type from DB" + type);
+                    codesMap.put(type, description); //35:11
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
+
             } catch (java.sql.SQLException connExcept) {
                 connExcept.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            }  finally { // just in case there was an error in the previous try
+                try{
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+
+                } catch (java.sql.SQLException e) {
+                    e.printStackTrace();
+                }
             }
+
 
             return null;
         }
