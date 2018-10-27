@@ -69,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     barcodeResult.setText("No Barcode Found");
                     GetData getData = new GetData();
-                    if(Build.VERSION.SDK_INT >= 11/*HONEYCOMB*/) {
-                        getData.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    } else {
-                        getData.execute();
-                    }
+                    getData.execute();
                 }
             }
 
