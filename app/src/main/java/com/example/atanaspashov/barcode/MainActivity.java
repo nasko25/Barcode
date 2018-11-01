@@ -1,7 +1,9 @@
 package com.example.atanaspashov.barcode;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -68,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
-                    GetData getData = new GetData();
-                    getData.execute();
+
                 }
             }
 
@@ -78,66 +79,6 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
 
-    }
-
-    private class GetData extends AsyncTask<String, String, String> {
-
-        // JDBC driver name and database URL
-        static final String JDBC_Driver = "com.mysql.jdbc.Driver";
-        static final String DB_URL = "jdbc:mysql://" + DB_Strings.database_URL + "/" + DB_Strings.database_NAME;
-
-        @Override
-        protected void onPreExecute() {
-            // someTextView.setText("Connecting to DB");
-            super.onPreExecute();
-        }
-
-
-        @Override
-        protected String doInBackground(String... strings) {
-            Connection conn = null;
-            Statement stmt = null;  // SELECT * FROM table;
-
-            try {
-                Class.forName(JDBC_Driver);
-                conn = DriverManager.getConnection(DB_URL, DB_Strings.username, DB_Strings.password);
-
-                stmt = conn.createStatement();
-                String sql_request = "SELECT * FROM codes";
-                ResultSet rs = stmt.executeQuery(sql_request);
-
-                while(rs.next()) // while it has a next result
-                {
-                    String type = rs.getString("type"); // type is the name of the column
-                    String description = "";
-                    Log.d("cow", "Type from DB" + type);
-                    codesMap.put(type, description); //35:11
-                }
-                rs.close();
-                stmt.close();
-                conn.close();
-
-            } catch (java.sql.SQLException connExcept) {
-                connExcept.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }  finally { // just in case there was an error in the previous try
-                try{
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-
-                } catch (java.sql.SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-            return null;
-        }
     }
 
 } // end of MainActivity outer class
