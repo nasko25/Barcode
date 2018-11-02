@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
+                    AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
+                    ac.open(); Log.w( "COW",ac.getAddress(36000291452l));
+                    barcodeResult.setText("nothing" + ac.getAddress(671860013624l));
+                    ac.close();
 
                 }
             }
