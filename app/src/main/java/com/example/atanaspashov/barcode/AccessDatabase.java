@@ -43,7 +43,7 @@ public class AccessDatabase {
     }
 
     public String getAddress(long code) {
-        cursor = database.rawQuery("SELECT type FROM codes WHERE code = ?", new String[]{"671860013624"});
+        cursor = database.rawQuery("SELECT type FROM codes WHERE code = ?", new String[]{Long.toString(code) /*or String.valueOf()*/});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0); Log.w("COW", "address " + cursor);

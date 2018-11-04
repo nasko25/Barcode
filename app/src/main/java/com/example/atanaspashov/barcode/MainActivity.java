@@ -23,7 +23,7 @@ import java.sql.Statement;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    TextView barcodeResult;
+    TextView barcodeResult, errorTextView;
     Map<String, String> codesMap;
     public String buttonName = "button";
 
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         barcodeResult = (TextView)findViewById(R.id.sample_text);
+        errorTextView = (TextView)findViewById(R.id.errorTextView);
     }
 
     /**
@@ -66,20 +67,29 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode==CommonStatusCodes.SUCCESS){
                 if(data!=null){
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    barcodeResult.setText("Barcode value: " + barcode.displayValue);
-                }
-                else {
-                    barcodeResult.setText("No Barcode Found");
+                    // barcodeResult.setText("Barcode value: " + barcode.displayValue);
+                    Long code = 0l;
+                    try {
+                        code = Long.parseLong(barcode.displayValue);
+                    }
+                    catch (java.lang.NumberFormatException e) {
+                        errorTextView.setText("Incompatible barcode");
+                    }
                     AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
-                    ac.open(); Log.w( "COW", "address = " + ac.getAddress(36000291452l));
-                    if (ac.getAddress(36000291452l).equals("")) {
+                    ac.open();
+                    if (ac.getAddress(code).equals("")) {
                         barcodeResult.setText("Barcode not found in the database");
                     }
                     else {
-                    barcodeResult.setText("nothing" + ac.getAddress(671860013624l)); }
+                        errorTextView.setText("");
+                        barcodeResult.setText("nothing" + ac.getAddress(code)); }
                     ac.close();
 
                 }
+                }
+                else {
+                    barcodeResult.setText("No Barcode Found");
+
             }
 
         }
