@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
                     ac.close();
 
                 }
+                else {
+                    barcodeResult.setText("No Barcode Found");
+                }
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
             else{
+            barcodeResult.setText("No Barcode Found");
             super.onActivityResult(requestCode, resultCode, data);
         }
 
