@@ -39,6 +39,5 @@ dependencies {
     // add mobile vision dependency and sync the gradle
     implementation 'com.google.android.gms:play-services-vision:9.4.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
-    compileOnly project(':mysql-connector-java-8.0.12')
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 }
