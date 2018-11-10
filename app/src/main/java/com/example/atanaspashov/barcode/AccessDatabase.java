@@ -18,7 +18,7 @@ public class AccessDatabase {
 
     private SQLiteOpenHelper OpenHelper;
     private SQLiteDatabase database;
-    private static AccessDatabase instanse;
+    private static AccessDatabase instance;
     Cursor cursor;
 
     private AccessDatabase(Context context) {
@@ -26,10 +26,10 @@ public class AccessDatabase {
     } // private
 
     public static AccessDatabase getDatabaseInstance(Context context) {
-        if (instanse == null) {
-            instanse = new AccessDatabase(context);
+        if (instance == null) {
+            instance = new AccessDatabase(context);
         }
-        return instanse;
+        return instance;
     }
 
     public void open() {
@@ -42,8 +42,18 @@ public class AccessDatabase {
         }
     }
 
-    public String getAddress(long code) {
-        cursor = database.rawQuery("SELECT type FROM codes WHERE code = ?", new String[]{Long.toString(code) /*or String.valueOf()*/});
+    public String getType(long code) {
+        cursor = database.rawQuery("SELECT type FROM barcodes WHERE code = ?", new String[]{Long.toString(code) /*or String.valueOf()*/});
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            String address = cursor.getString(0);
+            buffer.append("" + address);
+        }
+        return buffer.toString();
+    }
+
+    public String getDescription(String type) {
+        cursor = database.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type /*or String.valueOf()*/});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0); Log.w("COW", "address " + cursor);
@@ -53,7 +63,7 @@ public class AccessDatabase {
     }
 
     private class GetData extends SQLiteAssetHelper {
-        private static final String DB_name = "Barcodes.db";
+        private static final String DB_name = "BarcodeMaterialType.db";
         private static final int DB_version = 1;
 
         public GetData(Context context) {

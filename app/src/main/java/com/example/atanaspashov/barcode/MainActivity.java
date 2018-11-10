@@ -22,7 +22,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {                        // TODO think of a way to add images
     TextView barcodeResult, errorTextView;
     Map<String, String> codesMap;
     public String buttonName = "button";
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     // add click event to the scan barcode button
     public void scanBarcode(View v){
         Intent intent = new Intent(this, ScanBarcodeActivity.class);
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent, 0);    // TODO check if the app has a camera permission, and if it does not query for it
 
     }
     // override onActivityResult to get barcode from ScanBarcodeActivity
@@ -77,12 +77,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
                     ac.open();
-                    if (ac.getAddress(code).equals("")) {
+                    if (ac.getType(code).equals("") || ac.getDescription(ac.getType(code)).equals("")) {    // TODO refactor with variables (don't call them unnecessarily)
                         barcodeResult.setText("Barcode not found in the database");
                     }
                     else {
                         errorTextView.setText("");
-                        barcodeResult.setText("nothing" + ac.getAddress(code)); }
+                        barcodeResult.setText("Type of plastic: " + ac.getType(code));
+                        barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
+                    }
                     ac.close();
 
                 }
