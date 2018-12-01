@@ -17,7 +17,7 @@ public class AccessDatabase {
     static final String password = "pass";*/
 
     private SQLiteOpenHelper OpenHelper;
-    private SQLiteDatabase database;
+    private SQLiteDatabase BarcodeDatabase;
     private static AccessDatabase instance;
     Cursor cursor;
 
@@ -33,17 +33,17 @@ public class AccessDatabase {
     }
 
     public void open() {
-        database = OpenHelper.getReadableDatabase(); // writable
+        BarcodeDatabase = OpenHelper.getReadableDatabase(); // writable
     }
 
     public void close() {
-        if (database != null) {
-            database.close();
+        if (BarcodeDatabase != null) {
+            BarcodeDatabase.close();
         }
     }
 
     public String getType(long code) {
-        cursor = database.rawQuery("SELECT type FROM barcodes WHERE code = ?", new String[]{Long.toString(code) /*or String.valueOf()*/});
+        cursor = BarcodeDatabase.rawQuery("SELECT type FROM barcodes WHERE code = ?", new String[]{Long.toString(code) /*or String.valueOf()*/});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0);
@@ -53,7 +53,7 @@ public class AccessDatabase {
     }
 
     public String getDescription(String type) {
-        cursor = database.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type /*or String.valueOf()*/});
+        cursor = BarcodeDatabase.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type /*or String.valueOf()*/});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0); Log.w("COW", "address " + cursor);
