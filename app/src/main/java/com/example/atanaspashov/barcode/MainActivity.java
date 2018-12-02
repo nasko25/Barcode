@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                         errorTextView.setText("Incompatible barcode");
                     }
                     AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
-                    ac.open();
+                    ac.open("barcode");
                     if (ac.getType(code).equals("") || ac.getDescription(ac.getType(code)).equals("")) {    // TODO refactor with variables (don't call them unnecessarily)
                         barcodeResult.setText("Barcode not found in the database");
                     }
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                         barcodeResult.setText("Type of plastic: " + ac.getType(code));
                         barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
                     }
-                    ac.close();
+                    ac.close("barcode");
 
                 }
                 else {

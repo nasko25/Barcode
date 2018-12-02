@@ -16,13 +16,16 @@ public class AccessDatabase {
     static final String username = "app_user";
     static final String password = "pass";*/
 
-    private SQLiteOpenHelper OpenHelper;
+    private SQLiteOpenHelper OpenHelperBarcode;
+    private SQLiteOpenHelper OpenHelperRecycleHistrory;
     private SQLiteDatabase BarcodeDatabase;
+    private SQLiteDatabase RecycleHistoryDatabase;
     private static AccessDatabase instance;
     Cursor cursor;
 
     private AccessDatabase(Context context) {
-        OpenHelper = new GetData(context);
+        OpenHelperBarcode = new GetData(context, "BarcodeMaterialType.db");
+        OpenHelperRecycleHistrory = new GetData(context, "RecycleHistory.db");
     } // private
 
     public static AccessDatabase getDatabaseInstance(Context context) {
@@ -32,41 +35,59 @@ public class AccessDatabase {
         return instance;
     }
 
-    public void open() {
-        BarcodeDatabase = OpenHelper.getReadableDatabase(); // writable
+    public void open(String db) {
+        if (db.equals("barcode")){
+            BarcodeDatabase = OpenHelperBarcode.getReadableDatabase(); // writable
+        }
+        else if (db.equals("history")) {
+            RecycleHistoryDatabase = OpenHelperRecycleHistrory.getReadableDatabase(); // more likely to be writable
+        }
+
     }
 
-    public void close() {
-        if (BarcodeDatabase != null) {
+    public void close(String db) {
+        if (BarcodeDatabase != null && db.equals("barcode")){
             BarcodeDatabase.close();
+            return;
         }
+        if (RecycleHistoryDatabase != null && db.equals("history")) {
+            RecycleHistoryDatabase.close();
+            return;
+        }
+        // if the argument is invalid:
+        // RecycleHistoryDatabase.close();
+        // BarcodeDatabase.close();
     }
 
     public String getType(long code) {
+        if (BarcodeDatabase != null) {
         cursor = BarcodeDatabase.rawQuery("SELECT type FROM barcodes WHERE code = ?", new String[]{Long.toString(code) /*or String.valueOf()*/});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0);
             buffer.append("" + address);
         }
-        return buffer.toString();
+        return buffer.toString(); }
+        return "";
     }
 
     public String getDescription(String type) {
+        if (BarcodeDatabase != null) {
         cursor = BarcodeDatabase.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type /*or String.valueOf()*/});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0); Log.w("COW", "address " + cursor);
             buffer.append("" + address);
         }
-        return buffer.toString();
+        return buffer.toString(); }
+        return "";
     }
 
     private class GetData extends SQLiteAssetHelper {
-        private static final String DB_name = "BarcodeMaterialType.db";
+        // private static final String DB_name = "BarcodeMaterialType.db";
         private static final int DB_version = 1;
 
-        public GetData(Context context) {
+        public GetData(Context context, String DB_name) {
             super(context, DB_name, null, DB_version);
         }
 
