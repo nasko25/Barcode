@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {                        // 
         tv.setText(" Hello This is a Barcode scanner ");
         //https://stackoverflow.com/questions/44842887/how-to-access-a-java-variable-in-strings-xml
 
-
+        AccessDatabase recycleHistory_DB = AccessDatabase.getDatabaseInstance(this);
+        recycleHistory_DB.open("history");
+        Log.w("COW", "Number of recycled elements: " + recycleHistory_DB.getRecycledElementsNumber());
 
         barcodeResult = (TextView)findViewById(R.id.sample_text);
         errorTextView = (TextView)findViewById(R.id.errorTextView);

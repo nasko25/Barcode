@@ -83,6 +83,18 @@ public class AccessDatabase {
         return "";
     }
 
+    public int getRecycledElementsNumber() {
+        if (RecycleHistoryDatabase != null) {
+            cursor = RecycleHistoryDatabase.rawQuery("SELECT times_recycled FROM history", new String[] {});
+            int recycledElementsNumber = 0;
+            while (cursor.moveToNext()) {
+                recycledElementsNumber+=cursor.getInt(0);
+            }
+            return recycledElementsNumber;
+        }
+        return 0;
+    }
+
     private class GetData extends SQLiteAssetHelper {
         // private static final String DB_name = "BarcodeMaterialType.db";
         private static final int DB_version = 1;
