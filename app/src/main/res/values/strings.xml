@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Barcode</string>
     <string name="button">Scan</string>
+    <string name="recycle_button">Recycle</string>
 </resources>
