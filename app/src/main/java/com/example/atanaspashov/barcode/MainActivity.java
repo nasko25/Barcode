@@ -24,6 +24,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {                        // TODO think of a way to add images
     TextView barcodeResult, errorTextView;
+    Button recycle_btn;
     Map<String, String> codesMap;
     public String buttonName = "button";
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {                        // 
 
         barcodeResult = (TextView)findViewById(R.id.sample_text);
         errorTextView = (TextView)findViewById(R.id.errorTextView);
+        recycle_btn = (Button) findViewById(R.id.recycle_button);
+        recycle_btn.setVisibility(View.GONE); // View.Visible
     }
 
     /**
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                         errorTextView.setText("");
                         barcodeResult.setText("Type of plastic: " + ac.getType(code));
                         barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
+                        recycle_btn.setVisibility(View.VISIBLE);
                     }
                     ac.close("barcode");
 
