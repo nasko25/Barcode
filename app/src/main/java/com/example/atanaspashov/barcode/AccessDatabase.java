@@ -2,6 +2,7 @@ package com.example.atanaspashov.barcode;
 
 
 import android.content.Context;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -90,9 +91,22 @@ public class AccessDatabase {
             while (cursor.moveToNext()) {
                 recycledElementsNumber+=cursor.getInt(0);
             }
+            Log.w("COW", "" + recycledElementsNumber);
             return recycledElementsNumber;
         }
         return 0;
+    }
+    protected void writeToRecycle(String type, String ToWrite){
+        if (RecycleHistoryDatabase != null) {
+            cursor = RecycleHistoryDatabase.rawQuery("SELECT type FROM history", new String[] {});
+            while (cursor.moveToNext()) {
+                if(cursor.getString(0).equals(type)) {
+                    RecycleHistoryDatabase = OpenHelperRecycleHistrory.getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put("times_recycled", 1); // TODO read from the DB and increment the number for times_recycled
+                }
+            }
+        }
     }
 
     private class GetData extends SQLiteAssetHelper {

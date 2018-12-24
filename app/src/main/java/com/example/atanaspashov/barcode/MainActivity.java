@@ -110,5 +110,9 @@ public class MainActivity extends AppCompatActivity {                        // 
         }
 
     }
-
+    public void OnRecycle(View v) {
+        AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
+        // call writeToRecycle("")
+        ac.writeToRecycle("test_plastic", "");
+    }
 } // end of MainActivity outer class
