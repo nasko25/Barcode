@@ -22,7 +22,7 @@ public class AccessDatabase {
     private SQLiteDatabase BarcodeDatabase;
     private SQLiteDatabase RecycleHistoryDatabase;
     private static AccessDatabase instance;
-    Cursor cursor;
+    Cursor cursor, cursorToWrite;
 
     private AccessDatabase(Context context) {
         OpenHelperBarcode = new GetData(context, "BarcodeMaterialType.db");
@@ -99,13 +99,18 @@ public class AccessDatabase {
     protected void writeToRecycle(String type, String ToWrite){
         if (RecycleHistoryDatabase != null) {
             cursor = RecycleHistoryDatabase.rawQuery("SELECT type FROM history", new String[] {});
+            RecycleHistoryDatabase = OpenHelperRecycleHistrory.getWritableDatabase();
+            cursorToWrite = RecycleHistoryDatabase.rawQuery("UPDATE history set times_recycled = 1 where type = ?;", new String[] {type});
             while (cursor.moveToNext()) {
                 if(cursor.getString(0).equals(type)) {
-                    RecycleHistoryDatabase = OpenHelperRecycleHistrory.getWritableDatabase();
-                    ContentValues values = new ContentValues();
-                    values.put("times_recycled", 1); // TODO read from the DB and increment the number for times_recycled
+                    cursorToWrite.moveToFirst();
+
+                    // TODO read from the DB and increment the number for times_recycled
+                    // TODO if there is no entry for the type, create one, and set the times_recycled to 1
                 }
             }
+            cursor.close();
+            cursorToWrite.close();
         }
     }
 
