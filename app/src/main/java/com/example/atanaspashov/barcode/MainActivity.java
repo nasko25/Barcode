@@ -112,7 +112,10 @@ public class MainActivity extends AppCompatActivity {                        // 
     }
     public void OnRecycle(View v) {
         AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
+        ac.open("history");
         // call writeToRecycle("")
         ac.writeToRecycle("test_plastic", "");
+        Log.w("COW", "Number of recycled elements: " + ac.getRecycledElementsNumber());
+        ac.close("history");
     }
 } // end of MainActivity outer class
