@@ -98,6 +98,7 @@ public class AccessDatabase {
     }
     protected void writeToRecycle(String type, String ToWrite){
         if (RecycleHistoryDatabase != null) {
+            boolean checked = false;
             cursor = RecycleHistoryDatabase.rawQuery("SELECT type FROM history", new String[] {});
             Cursor cursorPrevious = RecycleHistoryDatabase.rawQuery("SELECT times_recycled FROM history WHERE type = ?", new String[] {type});
             RecycleHistoryDatabase = OpenHelperRecycleHistrory.getWritableDatabase();
@@ -106,17 +107,19 @@ public class AccessDatabase {
                     cursorPrevious.moveToNext();
                     cursorToWrite = RecycleHistoryDatabase.rawQuery("UPDATE history set times_recycled = ? where type = ?;", new String[] {String.valueOf((cursorPrevious.getInt(0) + 1)), type});
                     cursorToWrite.moveToFirst();
+                    checked = true;
+                    break;
+                }
 
-                    // TODO read from the DB and increment the number for times_recycled
-                    // TODO if there is no entry for the type, create one, and set the times_recycled to 1
-                }
-                else {
-                    // create a new entry with that type
-                }
+            }
+            if (!checked){ // then the entry was not found in the DB
+                // create a new entry with that type
+                cursorToWrite = RecycleHistoryDatabase.rawQuery("INSERT INTO history VALUES (?, ?)", new String[] {type, String.valueOf(1)});
+                cursorToWrite.moveToFirst();
             }
             cursor.close();
             cursorToWrite.close();
-            // cursorPrevious.close();
+            cursorPrevious.close();
         }
     }
 
