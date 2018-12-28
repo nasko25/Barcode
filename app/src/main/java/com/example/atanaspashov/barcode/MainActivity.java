@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {                        // TODO think of a way to add images
     TextView barcodeResult, errorTextView;
-    Button recycle_btn;
+    Button recycle_btn, history_btn;
     Map<String, String> codesMap;
     public String buttonName = "button";
 
@@ -44,14 +44,15 @@ public class MainActivity extends AppCompatActivity {                        // 
         tv.setText(" Hello This is a Barcode scanner ");
         //https://stackoverflow.com/questions/44842887/how-to-access-a-java-variable-in-strings-xml
 
-        AccessDatabase recycleHistory_DB = AccessDatabase.getDatabaseInstance(this);
-        recycleHistory_DB.open("history");
-        Log.w("COW", "Number of recycled elements: " + recycleHistory_DB.getRecycledElementsNumber());
+        // AccessDatabase recycleHistory_DB = AccessDatabase.getDatabaseInstance(this);
+        // recycleHistory_DB.open("history");
+        // Log.w("COW", "Number of recycled elements: " + recycleHistory_DB.getRecycledElementsNumber());
 
         barcodeResult = (TextView)findViewById(R.id.sample_text);
         errorTextView = (TextView)findViewById(R.id.errorTextView);
         recycle_btn = (Button) findViewById(R.id.recycle_button);
         recycle_btn.setVisibility(View.GONE); // View.Visible
+        history_btn = findViewById(R.id.history);
     }
 
     /**
@@ -59,6 +60,15 @@ public class MainActivity extends AppCompatActivity {                        // 
      * which is packaged with this application.
      */
     public native String stringFromJNI();
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AccessDatabase recycleHistory_DB = AccessDatabase.getDatabaseInstance(this);
+        recycleHistory_DB.open("history");
+        history_btn.setText(String.valueOf(recycleHistory_DB.getRecycledElementsNumber()));
+        recycleHistory_DB.close("history");
+    }
 
     // add click event to the scan barcode button
     public void scanBarcode(View v){
