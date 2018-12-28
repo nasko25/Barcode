@@ -2,4 +2,5 @@
     <string name="app_name">Barcode</string>
     <string name="button">Scan</string>
     <string name="recycle_button">Recycle</string>
+    <string name = "history"> 0 </string>
 </resources>

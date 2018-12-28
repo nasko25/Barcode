@@ -91,7 +91,6 @@ public class AccessDatabase {
             while (cursor.moveToNext()) {
                 recycledElementsNumber+=cursor.getInt(0);
             }
-            Log.w("COW", "" + recycledElementsNumber);
             return recycledElementsNumber;
         }
         return 0;
