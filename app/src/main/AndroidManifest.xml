@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.atanaspashov.barcode">
 
-    <uses-permission android:name="android.permission.CAMERA" /> <!--neww-->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- neww -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,17 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--add mobile vision dependencies and version to metadata-->
+        <!-- add mobile vision dependencies and version to metadata -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value = "@integer/google_play_services_version"></meta-data>
-
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.version.DEPENDENCIES"
-            android:value = "barcode"></meta-data>
+            android:value="barcode" />
 
-
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="Barcode Reader">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,8 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ScanBarcodeActivity"
+        <activity
+            android:name=".ScanBarcodeActivity"
             android:label="Scan Barcode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RecycleHistory"></activity>
     </application>
 
 </manifest>

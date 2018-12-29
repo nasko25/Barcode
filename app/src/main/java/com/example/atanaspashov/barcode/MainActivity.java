@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity {                        // 
         startActivityForResult(intent, 0);    // TODO check if the app has a camera permission, and if it does not query for it
 
     }
+    public void openHistory(View v){
+        Intent intent = new Intent(this, RecycleHistory.class);
+        startActivityForResult(intent, 0);
+    }
+
     // override onActivityResult to get barcode from ScanBarcodeActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==0){
