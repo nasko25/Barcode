@@ -10,6 +10,8 @@ import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
+import java.util.ArrayList;
+
 public class AccessDatabase {
 
 /*    static final String database_URL = "localhost:3306";
@@ -95,6 +97,17 @@ public class AccessDatabase {
         }
         return 0;
     }
+
+    public ArrayList<String> getRecycledItems() {
+        RecycleHistoryDatabase = OpenHelperRecycleHistrory.getReadableDatabase();
+        cursor = RecycleHistoryDatabase.rawQuery("SELECT type FROM history", new String[]{});
+        ArrayList<String> items = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            items.add(cursor.getString(0));
+        }
+        return items;
+    }
+
     protected void writeToRecycle(String type, String ToWrite){
         if (RecycleHistoryDatabase != null) {
             boolean checked = false;
