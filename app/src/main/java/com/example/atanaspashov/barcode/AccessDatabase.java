@@ -108,6 +108,16 @@ public class AccessDatabase {
         return items;
     }
 
+    public ArrayList<String> getRecycledItemsNumbers() {
+        RecycleHistoryDatabase = OpenHelperRecycleHistrory.getReadableDatabase();
+        cursor = RecycleHistoryDatabase.rawQuery("SELECT times_recycled FROM history", new String[]{});
+        ArrayList<String> items_count = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            items_count.add(cursor.getString(0));
+        }
+        return items_count;
+    }
+
     protected void writeToRecycle(String type, String ToWrite){
         if (RecycleHistoryDatabase != null) {
             boolean checked = false;
