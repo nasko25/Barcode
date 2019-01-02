@@ -12,7 +12,7 @@ public class ScreenSlidePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.activity_recycle_history, container, false);
+                R.layout.article_list, container, false);
 
         return rootView;
     }

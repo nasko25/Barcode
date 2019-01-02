@@ -18,7 +18,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="48dp"
         android:gravity="center_horizontal"
-        tools:srcCompat="@tools:sample/backgrounds/scenic[17]"
+        android:background="@drawable/testing_image"
         />
 
     <TextView
