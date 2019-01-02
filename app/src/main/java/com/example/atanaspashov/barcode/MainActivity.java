@@ -6,6 +6,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;      // TODO temporary; remove when not needed
@@ -28,6 +33,9 @@ public class MainActivity extends AppCompatActivity {                        // 
     Map<String, String> codesMap;
     String barcodeResultString;
     public String buttonName = "button";
+    private static final int NUM_PAGES = 2;
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -54,6 +62,38 @@ public class MainActivity extends AppCompatActivity {                        // 
         recycle_btn = (Button) findViewById(R.id.recycle_button);
         recycle_btn.setVisibility(View.GONE); // View.Visible
         history_btn = findViewById(R.id.history);
+
+        pager = (ViewPager) findViewById(R.id.pager);
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(pagerAdapter);
+    }
+    @Override
+    public void onBackPressed() {
+        if (pager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            pager.setCurrentItem(pager.getCurrentItem() - 1);
+        }
+    }
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        // TODO add different articles for the different pages (items)
+        @Override
+        public Fragment getItem(int position) {
+            return new ScreenSlidePageFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
 
     /**
