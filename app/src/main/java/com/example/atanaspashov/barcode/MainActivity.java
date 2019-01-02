@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {                        // 
     TextView barcodeResult, errorTextView;
     Button recycle_btn, history_btn;
     Map<String, String> codesMap;
+    String barcodeResultString;
     public String buttonName = "button";
 
     // Used to load the 'native-lib' library on application startup.
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {                        // 
 
     }
     public void openHistory(View v){
-        Intent intent = new Intent(this, RecycleHistory.class);
+        // Intent intent = new Intent(this, RecycleHistory.class);
+        Intent intent = new Intent(this, RecycleHistoryActivity.class); // TODO if the database is empty, call another activity that says the database is empty
         startActivityForResult(intent, 0);
     }
 
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                         barcodeResult.setText("Barcode not found in the database");
                     }
                     else {
+                        barcodeResultString = ac.getType(code);
                         errorTextView.setText("");
                         barcodeResult.setText("Type of plastic: " + ac.getType(code));
                         barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
@@ -125,11 +128,14 @@ public class MainActivity extends AppCompatActivity {                        // 
         }
 
     }
+
+    // TODO after the user clicks on the Recycle button, it should either make the button disappear (and somehow notify the user that the material was added to the database), or it should just notify the user that it was added
     public void OnRecycle(View v) {
         AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
         ac.open("history");
         // call writeToRecycle("")
-        ac.writeToRecycle("test_plastic", "");
+        // ac.writeToRecycle("test_plastic", "");
+        ac.writeToRecycle(barcodeResultString, "");
         Log.w("COW", "Number of recycled elements: " + ac.getRecycledElementsNumber());
         ac.close("history");
     }
