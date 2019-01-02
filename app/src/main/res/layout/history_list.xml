@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:id = "@+id/image"
+    android:gravity = "center"
+    >
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_recycle"
+        />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/material"
+        android:padding="12dp"
+        android:layout_alignParentTop = "true"
+        android:gravity="center"
+        android:layout_toRightOf = "@id/image"
+        android:layout_width="290dp"
+        android:layout_height="56dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/material_count"
+        android:padding="12dp"
+        android:layout_alignParentTop = "true"
+        android:gravity="center"
+        android:layout_toRightOf = "@id/material"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@+id/image"
+
+        />
+</RelativeLayout>
