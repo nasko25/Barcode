@@ -87,7 +87,10 @@ public class MainActivity extends AppCompatActivity {                        // 
         // TODO add different articles for the different pages (items)
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+            if (position == 0)
+                return new ScreenSlidePageFragment();
+
+            return new ScreenSlidePageFragmentForPage2();
         }
 
         @Override
