@@ -110,7 +110,7 @@ public class AccessDatabase {
 
     public ArrayList<String> getRecycledItemsNumbers() {
         RecycleHistoryDatabase = OpenHelperRecycleHistrory.getReadableDatabase();
-        cursor = RecycleHistoryDatabase.rawQuery("SELECT times_recycled FROM history", new String[]{});
+        cursor = RecycleHistoryDatabase.rawQuery("SELECT times_recycled FROM history ORDER BY type", new String[]{});
         ArrayList<String> items_count = new ArrayList<>();
         while (cursor.moveToNext()) {
             items_count.add(cursor.getString(0));
