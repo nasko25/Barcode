@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity {                        // 
         // Log.w("COW", "Number of recycled elements: " + recycleHistory_DB.getRecycledElementsNumber());
 
         barcodeResult = (TextView)findViewById(R.id.sample_text);
+        barcodeResult.setVisibility(View.GONE);
         errorTextView = (TextView)findViewById(R.id.errorTextView);
+        errorTextView.setVisibility(View.GONE);
         recycle_btn = (Button) findViewById(R.id.recycle_button);
         recycle_btn.setVisibility(View.GONE); // View.Visible
         history_btn = findViewById(R.id.history);
@@ -139,17 +141,22 @@ public class MainActivity extends AppCompatActivity {                        // 
                     }
                     catch (java.lang.NumberFormatException e) {
                         errorTextView.setText("Incompatible barcode");
+                        ScreenSlidePageFragment.onError("Incompatible barcode");
                     }
                     AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
                     ac.open("barcode");
                     if (ac.getType(code).equals("") || ac.getDescription(ac.getType(code)).equals("")) {    // TODO refactor with variables (don't call them unnecessarily)
                         barcodeResult.setText("Barcode not found in the database");
+                        ScreenSlidePageFragment.onTextChange("Barcode not found in the database");
                     }
                     else {
                         barcodeResultString = ac.getType(code);
                         errorTextView.setText("");
+                        ScreenSlidePageFragment.onError("");
                         barcodeResult.setText("Type of plastic: " + ac.getType(code));
+                        ScreenSlidePageFragment.onTextChange("Type of plastic: " + ac.getType(code));
                         barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
+                        ScreenSlidePageFragment.onTextChange(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
                         recycle_btn.setVisibility(View.VISIBLE);
                     }
                     ac.close("barcode");
@@ -157,16 +164,18 @@ public class MainActivity extends AppCompatActivity {                        // 
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
+                    ScreenSlidePageFragment.onTextChange("No Barcode Found");
                 }
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
-
+                    ScreenSlidePageFragment.onTextChange("No Barcode Found");
             }
 
         }
             else{
             barcodeResult.setText("No Barcode Found");
+            ScreenSlidePageFragment.onTextChange("No Barcode Found");
             super.onActivityResult(requestCode, resultCode, data);
         }
 
