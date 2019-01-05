@@ -21,14 +21,17 @@ public class AccessDatabase {
 
     private SQLiteOpenHelper OpenHelperBarcode;
     private SQLiteOpenHelper OpenHelperRecycleHistrory;
+    private SQLiteOpenHelper OpenHelperArticles;
     private SQLiteDatabase BarcodeDatabase;
     private SQLiteDatabase RecycleHistoryDatabase;
+    private SQLiteDatabase ArticlesDatabase;
     private static AccessDatabase instance;
     Cursor cursor, cursorToWrite;
 
     private AccessDatabase(Context context) {
         OpenHelperBarcode = new GetData(context, "BarcodeMaterialType.db");
         OpenHelperRecycleHistrory = new GetData(context, "RecycleHistory.db");
+        OpenHelperArticles = new GetData(context, "Articles.db");
     } // private
 
     public static AccessDatabase getDatabaseInstance(Context context) {
@@ -45,6 +48,9 @@ public class AccessDatabase {
         else if (db.equals("history")) {
             RecycleHistoryDatabase = OpenHelperRecycleHistrory.getReadableDatabase(); // more likely to be writable
         }
+        else if (db.equals("article")) {
+            ArticlesDatabase = OpenHelperArticles.getReadableDatabase();
+        }
 
     }
 
@@ -55,6 +61,10 @@ public class AccessDatabase {
         }
         if (RecycleHistoryDatabase != null && db.equals("history")) {
             RecycleHistoryDatabase.close();
+            return;
+        }
+        if (ArticlesDatabase != null && db.equals("article")) {
+            ArticlesDatabase.close();
             return;
         }
         // if the argument is invalid:
@@ -145,8 +155,37 @@ public class AccessDatabase {
         }
     }
 
+    protected ArrayList<String> getTitle() {
+        ArticlesDatabase = OpenHelperArticles.getReadableDatabase();
+        cursor = ArticlesDatabase.rawQuery("SELECT Title FROM articles ORDER BY ID", new String[]{});
+        ArrayList<String> titles = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            titles.add(cursor.getString(0));
+        }
+        return titles;
+    }
+
+    protected ArrayList<String> getText() {
+        ArticlesDatabase = OpenHelperArticles.getReadableDatabase();
+        cursor = ArticlesDatabase.rawQuery("SELECT Text FROM articles ORDER BY ID", new String[]{});
+        ArrayList<String> texts = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            texts.add(cursor.getString(0));
+        }
+        return texts;
+    }
+
+    protected ArrayList<Integer> getArticleIds() {
+        ArticlesDatabase = OpenHelperArticles.getReadableDatabase();
+        cursor = ArticlesDatabase.rawQuery("SELECT ID FROM articles ORDER BY ID", new String[]{});
+        ArrayList<Integer> ids = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            ids.add(cursor.getInt(0));
+        }
+        return ids;
+    }
+
     private class GetData extends SQLiteAssetHelper {
-        // private static final String DB_name = "BarcodeMaterialType.db";
         private static final int DB_version = 1;
 
         public GetData(Context context, String DB_name) {
