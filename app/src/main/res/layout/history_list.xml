@@ -32,12 +32,14 @@
 
     <TextView
         android:id="@+id/material_count"
-        android:padding="12dp"
-        android:layout_alignParentTop = "true"
-        android:gravity="center"
-        android:layout_toRightOf = "@id/material"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="-34dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/material"
+        android:gravity="center"
+        android:padding="12dp"
         android:text="0" />
 
     <View
