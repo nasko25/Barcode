@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                         ScreenSlidePageFragment.onError("");
                         barcodeResult.setText("Type of plastic: " + ac.getType(code));
                         ScreenSlidePageFragment.onTextChange("Type of plastic: " + ac.getType(code));
-                        barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
+                        // barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
                         ScreenSlidePageFragment.onTextChange(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
                         recycle_btn.setVisibility(View.VISIBLE);
                     }
@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity {                        // 
         // ac.writeToRecycle("test_plastic", "");
         ac.writeToRecycle(barcodeResultString, "");
         Log.w("COW", "Number of recycled elements: " + ac.getRecycledElementsNumber());
+        history_btn.setText(String.valueOf(ac.getRecycledElementsNumber()));
         ac.close("history");
     }
 } // end of MainActivity outer class
