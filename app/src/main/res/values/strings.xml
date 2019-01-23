@@ -4,5 +4,6 @@
     <string name="recycle_button">Recycle</string>
     <string name="history"> 0 </string>
     <string name="text"> You have no history. Scan more items, and recycle them, and they will appear here. </string>
+    <string name = "suggest"> Suggest </string>
 
 </resources>

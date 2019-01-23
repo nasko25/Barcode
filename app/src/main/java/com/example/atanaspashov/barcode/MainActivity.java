@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {                        // TODO think of a way to add images
     TextView barcodeResult, errorTextView;
-    Button recycle_btn, history_btn;
+    Button recycle_btn, history_btn, suggest_btn;
     Map<String, String> codesMap;
     String barcodeResultString;
     public String buttonName = "button";
@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {                        // 
         recycle_btn = (Button) findViewById(R.id.recycle_button);
         recycle_btn.setVisibility(View.GONE); // View.Visible
         history_btn = findViewById(R.id.history);
+        suggest_btn = findViewById(R.id.suggest);
+        suggest_btn.setVisibility(View.GONE);
 
         pager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -148,6 +150,9 @@ public class MainActivity extends AppCompatActivity {                        // 
                     if (ac.getType(code).equals("") || ac.getDescription(ac.getType(code)).equals("")) {    // TODO refactor with variables (don't call them unnecessarily)
                         barcodeResult.setText("Barcode not found in the database");
                         ScreenSlidePageFragment.onTextChange("Barcode not found in the database");
+                        recycle_btn.setVisibility(View.GONE);
+                        suggest_btn.setVisibility(View.VISIBLE);
+
                     }
                     else {
                         barcodeResultString = ac.getType(code);
@@ -157,6 +162,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                         ScreenSlidePageFragment.onTextChange("Type of plastic: " + ac.getType(code));
                         // barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
                         ScreenSlidePageFragment.onTextChange(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
+                        suggest_btn.setVisibility(View.GONE);
                         recycle_btn.setVisibility(View.VISIBLE);
                     }
                     ac.close("barcode");
@@ -165,17 +171,20 @@ public class MainActivity extends AppCompatActivity {                        // 
                 else {
                     barcodeResult.setText("No Barcode Found");
                     ScreenSlidePageFragment.onTextChange("No Barcode Found");
+                    suggest_btn.setVisibility(View.GONE);
                 }
                 }
                 else {
                     barcodeResult.setText("No Barcode Found");
                     ScreenSlidePageFragment.onTextChange("No Barcode Found");
+                    suggest_btn.setVisibility(View.GONE);
             }
 
         }
             else{
             barcodeResult.setText("No Barcode Found");
             ScreenSlidePageFragment.onTextChange("No Barcode Found");
+            suggest_btn.setVisibility(View.GONE);
             super.onActivityResult(requestCode, resultCode, data);
         }
 
@@ -191,5 +200,9 @@ public class MainActivity extends AppCompatActivity {                        // 
         Log.w("COW", "Number of recycled elements: " + ac.getRecycledElementsNumber());
         history_btn.setText(String.valueOf(ac.getRecycledElementsNumber()));
         ac.close("history");
+    }
+
+    public void OnSuggest(View v) {
+
     }
 } // end of MainActivity outer class
