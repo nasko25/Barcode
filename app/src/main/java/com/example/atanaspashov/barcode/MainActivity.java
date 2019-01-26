@@ -203,6 +203,7 @@ public class MainActivity extends AppCompatActivity {                        // 
     }
 
     public void OnSuggest(View v) {
-
+        Intent intent = new Intent(this, Suggest.class);
+        startActivityForResult(intent, 0);
     }
 } // end of MainActivity outer class

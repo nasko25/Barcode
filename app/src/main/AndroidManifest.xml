@@ -40,7 +40,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecycleHistory" />
-        <activity android:name=".RecycleHistoryActivity"></activity>
+        <activity android:name=".RecycleHistoryActivity" />
+        <activity android:name=".Suggest"></activity>
     </application>
 
 </manifest>
