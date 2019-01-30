@@ -6,7 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".Suggest">
 
+    <Button
+        android:id="@+id/button_suggest_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="onSuggest"
+        android:text="@string/suggest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.944" />
+
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="395dp"
         android:layout_height="587dp"
         android:layout_marginStart="8dp"
@@ -14,6 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fillViewport="true"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,36 +41,57 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="15dp"
+                android:text="Please fill in this form to suggest the material :) \n So we can research it and add it here"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editText2"
-                android:layout_width="wrap_content"
+                android:id="@+id/barcode_to_suggest"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name of product"
                 android:selectAllOnFocus="true"
-                />
+                android:text="Barcode" />
 
             <EditText
-                android:id="@+id/editText3"
-                android:layout_width="wrap_content"
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Brief description"
                 android:selectAllOnFocus="true"
-                />
+                android:text="Name of product" />
 
             <EditText
-                android:id="@+id/editText4"
-                android:layout_width="wrap_content"
+                android:id="@+id/description"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Materials"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:text="Brief description" />
+
+            <EditText
+                android:id="@+id/materials"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="Materials you can identify" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

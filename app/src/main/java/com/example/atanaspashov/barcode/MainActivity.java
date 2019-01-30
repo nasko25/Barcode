@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {                        // 
     private static final int NUM_PAGES = 2;
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
+    Long code = 0l;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {                        // 
                 if(data!=null){
                     Barcode barcode = data.getParcelableExtra("barcode");
                     // barcodeResult.setText("Barcode value: " + barcode.displayValue);
-                    Long code = 0l;
+
                     try {
                         code = Long.parseLong(barcode.displayValue);
                     }
@@ -204,6 +205,7 @@ public class MainActivity extends AppCompatActivity {                        // 
 
     public void OnSuggest(View v) {
         Intent intent = new Intent(this, Suggest.class);
+        intent.putExtra("barcode", String.valueOf(code));
         startActivityForResult(intent, 0);
     }
 } // end of MainActivity outer class
