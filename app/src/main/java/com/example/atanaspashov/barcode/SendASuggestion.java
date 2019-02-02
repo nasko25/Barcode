@@ -12,17 +12,27 @@ import java.net.Socket;
 public class SendASuggestion extends AsyncTask<String, Void, Void> {
     private ServerSocket sendSocket;
     private Socket recvSocket;
+    private String barcode, name, desc, materials;
     public SendASuggestion() {
 
     }
     @Override
-    protected Void doInBackground(String... IPAndPort) {
+    protected Void doInBackground(String... Description) { // TODO pass in a struct?
         try {
             Socket socket = new Socket("192.168.1.135", 12000);
             OutputStream out = socket.getOutputStream();
             PrintWriter output = new PrintWriter(out, true);
 
-            output.println("test");
+            // TODO test
+            barcode = Description[0];
+            name = Description[1];
+            desc = Description[2];
+            materials = Description[3];
+            output.println("test:\n" );
+            output.println(barcode);
+            output.println(name);
+            output.println(desc);
+            output.println(materials);
 
             output.close();
             out.close();
