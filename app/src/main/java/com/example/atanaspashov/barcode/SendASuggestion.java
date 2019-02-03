@@ -28,11 +28,7 @@ public class SendASuggestion extends AsyncTask<String, Void, Void> {
             name = Description[1];
             desc = Description[2];
             materials = Description[3];
-            output.println("test:\n" );
-            output.println(barcode);
-            output.println(name);
-            output.println(desc);
-            output.println(materials);
+            output.println("test:\n" + barcode + "\n" + name + "\n" + desc + "\n" + materials);
 
             output.close();
             out.close();
