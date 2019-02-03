@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
-                android:paddingTop="8dp"
+                android:paddingTop="40dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="15dp"
                 android:text="Please fill in this form to suggest the material :) \n So we can research it and add it here"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:selectAllOnFocus="true"
                 android:text="Barcode" />
 
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:selectAllOnFocus="true"
                 android:text="Name of product" />
 
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:selectAllOnFocus="true"
                 android:text="Brief description" />
 
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:selectAllOnFocus="true"
                 android:text="Materials you can identify" />
 
