@@ -48,6 +48,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         DataProvider dp = dataset.get(position);
         holder.material.setText(dp.getMaterial());
+        holder.material.setTag(holder.material.getText());
         holder.count.setText(dp.getTimes_recycled());
 
     }
