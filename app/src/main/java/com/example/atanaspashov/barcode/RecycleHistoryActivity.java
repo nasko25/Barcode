@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -41,5 +43,10 @@ public class RecycleHistoryActivity extends AppCompatActivity {
         adapter = new DataAdapter(dataProviders);
         recyclerView.setAdapter(adapter);
         ac.close("history");
+    }
+
+    public void OnClick(View v) {
+        // TODO open a new activity with the info for the material, stored as a tag
+        Log.w("COW", v.getTag().toString());
     }
 }
