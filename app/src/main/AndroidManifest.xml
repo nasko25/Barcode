@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".GetMaterialInformationActivity"></activity>
         <!-- add mobile vision dependencies and version to metadata -->
         <meta-data
             android:name="com.google.android.gms.version"
@@ -32,13 +32,12 @@
         </activity>
         <activity
             android:name=".ScanBarcodeActivity"
-            android:label="Scan Barcode">
-        </activity>
+            android:label="Scan Barcode"></activity>
         <activity android:name=".RecycleHistory" />
-        <activity android:name=".RecycleHistoryActivity"
-            android:label="@string/activity_history"
-            />
-        <activity android:name=".Suggest"></activity>
+        <activity
+            android:name=".RecycleHistoryActivity"
+            android:label="@string/activity_history" />
+        <activity android:name=".Suggest" />
     </application>
 
 </manifest>
