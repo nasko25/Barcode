@@ -1,5 +1,6 @@
 package com.example.atanaspashov.barcode;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,5 +49,8 @@ public class RecycleHistoryActivity extends AppCompatActivity {
     public void OnClick(View v) {
         // TODO open a new activity with the info for the material, stored as a tag
         Log.w("COW", v.getTag().toString());
+        Intent intent = new Intent(this, GetMaterialInformationActivity.class);
+        intent.putExtra("material", "");
+        startActivityForResult(intent, 0);
     }
 }
