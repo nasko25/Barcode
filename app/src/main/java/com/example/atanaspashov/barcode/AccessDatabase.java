@@ -86,7 +86,7 @@ public class AccessDatabase {
 
     public String getDescription(String type) {
         if (BarcodeDatabase != null) {
-        cursor = BarcodeDatabase.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type /*or String.valueOf()*/});
+        cursor = BarcodeDatabase.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             String address = cursor.getString(0); Log.w("COW", "address " + cursor);

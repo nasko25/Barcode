@@ -50,7 +50,7 @@ public class RecycleHistoryActivity extends AppCompatActivity {
         // TODO open a new activity with the info for the material, stored as a tag
         Log.w("COW", v.getTag().toString());
         Intent intent = new Intent(this, GetMaterialInformationActivity.class);
-        intent.putExtra("material", "");
+        intent.putExtra("plastic", v.getTag().toString());
         startActivityForResult(intent, 0);
     }
 }
