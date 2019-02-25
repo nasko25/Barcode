@@ -25,6 +25,8 @@ public class GetMaterialInformationActivity extends AppCompatActivity {
         Log.w("COW", "description " + description);
         // display all the information for the material of the type of plastic
         barcodeInformation = findViewById(R.id.barcode_information);
+        description = description.replace("\\n", "\r\n\t\t");
+        Log.w("COW", "description " + description);
         barcodeInformation.setText("\t\t Type of plastic: " + plastic + "\n\n\t\t Description: " + description);
 
         SetupTheMargin();

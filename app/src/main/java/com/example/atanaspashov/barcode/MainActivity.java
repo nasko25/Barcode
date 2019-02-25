@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {                        // 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
         // tv.setText(stringFromJNI());
-        tv.setText(" Hello This is a Barcode scanner ");
+        // tv.setText(" Hello This is a Barcode scanner ");
         //https://stackoverflow.com/questions/44842887/how-to-access-a-java-variable-in-strings-xml
 
         // AccessDatabase recycleHistory_DB = AccessDatabase.getDatabaseInstance(this);
@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity {                        // 
                     }
                     catch (java.lang.NumberFormatException e) {
                         errorTextView.setText("Incompatible barcode");
+                        ScreenSlidePageFragment.onTextChange("No Barcode Found");
                         ScreenSlidePageFragment.onError("Incompatible barcode");
+                        return;
                     }
                     AccessDatabase ac = AccessDatabase.getDatabaseInstance(this);
                     ac.open("barcode");
@@ -159,10 +161,12 @@ public class MainActivity extends AppCompatActivity {                        // 
                         barcodeResultString = ac.getType(code);
                         errorTextView.setText("");
                         ScreenSlidePageFragment.onError("");
-                        barcodeResult.setText("Type of plastic: " + ac.getType(code));
-                        ScreenSlidePageFragment.onTextChange("Type of plastic: " + ac.getType(code));
+                        barcodeResult.setText("\tType of plastic: " + ac.getType(code));
+                        ScreenSlidePageFragment.onTextChange("\tType of plastic: " + ac.getType(code));
                         // barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
-                        ScreenSlidePageFragment.onTextChange(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
+                        String description = ac.getDescription(ac.getType(code));
+                        description = description.replace("\\n", "\r\n\t");
+                        ScreenSlidePageFragment.onTextChange(barcodeResult.getText() + "\n\tDescription: " + description);
                         suggest_btn.setVisibility(View.GONE);
                         recycle_btn.setVisibility(View.VISIBLE);
                     }
