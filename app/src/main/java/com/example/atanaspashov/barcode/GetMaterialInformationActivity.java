@@ -17,7 +17,6 @@ import android.widget.TextView;
 public class GetMaterialInformationActivity extends AppCompatActivity {
 
     private TextView barcodeInformation;
-    private ScrollView scrollView;
     private String plastic, description;
     private View game;
 
@@ -35,24 +34,16 @@ public class GetMaterialInformationActivity extends AppCompatActivity {
         Log.w("COW", "description " + description);
         // display all the information for the material of the type of plastic
         barcodeInformation = findViewById(R.id.barcode_information);
-        //barcodeInformation.setText("\t\t Type of plastic: " + plastic + "\n\n\t\t Description: " + description);
-        // TODO undo comment ^
+        barcodeInformation.setText("\t\t Type of plastic: " + plastic + "\n\n\t\t Description: " + description);
+
         SetupTheMargin();
         // TODO: add a mini game below the view
 
         // setContentView(new GameView(this));
-        game = findViewById(R.id.game);
-        scrollView = findViewById(R.id.scrollV);
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub; when to block scrolling (depending on when the user clicks on top of the game view)
-                return true;
-            }
-        });
 
         }
+
+        // TODO optimize the margins
 
     private void SetupTheMargin() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -76,19 +67,6 @@ public class GetMaterialInformationActivity extends AppCompatActivity {
         barcodeInformation.setLayoutParams(params);
     }
 
-    // TODO remove:
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int x = (int)event.getX();
-        int y = (int)event.getY();
-
-        /*switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-            case MotionEvent.ACTION_UP:
-        } */
-        return false;
-    }
 
 
 } // end of outer class
