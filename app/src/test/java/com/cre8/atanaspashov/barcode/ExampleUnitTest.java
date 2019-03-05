@@ -1,4 +1,4 @@
-package com.example.atanaspashov.barcode;
+package com.cre8.atanaspashov.barcode;
 
 import org.junit.Test;
 

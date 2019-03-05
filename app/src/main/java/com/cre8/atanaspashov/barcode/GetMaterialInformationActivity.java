@@ -1,4 +1,4 @@
-package com.example.atanaspashov.barcode;
+package com.cre8.atanaspashov.barcode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

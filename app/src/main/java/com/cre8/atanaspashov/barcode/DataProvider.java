@@ -1,4 +1,4 @@
-package com.example.atanaspashov.barcode;
+package com.cre8.atanaspashov.barcode;
 
 public class DataProvider {
     private String material, times_recycled;

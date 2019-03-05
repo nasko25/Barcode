@@ -1,11 +1,6 @@
-package com.example.atanaspashov.barcode;
+package com.cre8.atanaspashov.barcode;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -21,10 +16,6 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {                        // TODO think of a way to add images
@@ -108,7 +99,7 @@ public class MainActivity extends AppCompatActivity {                        // 
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public native String stringFromJNI();
+    // public native String stringFromJNI();
 
     @Override
     protected void onStart() {

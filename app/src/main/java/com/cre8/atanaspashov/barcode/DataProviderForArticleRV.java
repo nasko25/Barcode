@@ -1,6 +1,4 @@
-package com.example.atanaspashov.barcode;
-
-import android.media.Image;
+package com.cre8.atanaspashov.barcode;
 
 public class DataProviderForArticleRV {
     private String title, text;
