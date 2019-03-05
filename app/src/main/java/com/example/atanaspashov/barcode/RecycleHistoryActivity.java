@@ -16,7 +16,6 @@ public class RecycleHistoryActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<String> materials, times_recycled;
 
-    // TODO when you click on the material, it should open up a new activity that displays more information about it.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +46,6 @@ public class RecycleHistoryActivity extends AppCompatActivity {
     }
 
     public void OnClick(View v) {
-        // TODO open a new activity with the info for the material, stored as a tag
-        Log.w("COW", v.getTag().toString());
         Intent intent = new Intent(this, GetMaterialInformationActivity.class);
         intent.putExtra("plastic", v.getTag().toString());
         startActivityForResult(intent, 0);

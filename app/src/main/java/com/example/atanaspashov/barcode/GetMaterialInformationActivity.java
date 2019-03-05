@@ -30,7 +30,6 @@ public class GetMaterialInformationActivity extends AppCompatActivity {
         barcodeInformation.setText("\t\t Type of plastic: " + plastic + "\n\n\t\t Description: " + description);
 
         SetupTheMargin();
-        // TODO: add a mini game below the view
     }
 
     private void SetupTheMargin() {
