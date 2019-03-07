@@ -2,7 +2,6 @@ package com.cre8.atanaspashov.barcode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,17 +16,14 @@ public class GetMaterialInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_material_information);
 
         plastic = getIntent().getStringExtra("plastic");
-        Log.w("COW", plastic);
 
         AccessDatabase database = AccessDatabase.getDatabaseInstance(this);
         database.open("barcode");
         description = database.getDescription(plastic);
-        Log.w("COW", "description " + description);
         // display all the information for the material of the type of plastic
         barcodeInformation = findViewById(R.id.barcode_information);
         description = description.replace("\\n", "\r\n\t\t");
-        Log.w("COW", "description " + description);
-        barcodeInformation.setText("\t\t Type of plastic: " + plastic + "\n\n\t\t Description: " + description);
+        barcodeInformation.setText("\t\t Type of product: " + plastic + "\n\n\t\t Description: " + description);
 
         SetupTheMargin();
     }
@@ -37,7 +33,7 @@ public class GetMaterialInformationActivity extends AppCompatActivity {
         // set the margin of the textbox depending on how much text/characters there is
         CharSequence barcodeInfo = barcodeInformation.getText();
         int infoSize = barcodeInfo.length();
-        Log.w("COW", "info size: " + infoSize);
+
         if (infoSize <= 20) {
             params.setMargins(8,400,8,8);
         }

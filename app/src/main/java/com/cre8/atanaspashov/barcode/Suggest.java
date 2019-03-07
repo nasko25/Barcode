@@ -2,7 +2,6 @@ package com.cre8.atanaspashov.barcode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,7 +26,6 @@ public class Suggest extends AppCompatActivity {
 
         barcode =getIntent().getStringExtra("barcode");
         if (barcode != null && !barcode.equals("")) {
-            Log.w("COW", "here");
             // long barcodeLong = Long.parseLong(barcode);
             barcodeSuggestion.setText(barcode, TextView.BufferType.EDITABLE);
         }

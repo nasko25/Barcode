@@ -8,7 +8,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;      // TODO temporary; remove when not needed
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -152,8 +151,8 @@ public class MainActivity extends AppCompatActivity {                        // 
                         barcodeResultString = ac.getType(code);
                         errorTextView.setText("");
                         ScreenSlidePageFragment.onError("");
-                        barcodeResult.setText("\tType of plastic: " + ac.getType(code));
-                        ScreenSlidePageFragment.onTextChange("\tType of plastic: " + ac.getType(code));
+                        barcodeResult.setText("\tType of product: " + ac.getType(code));
+                        ScreenSlidePageFragment.onTextChange("\tType of product: " + ac.getType(code));
                         // barcodeResult.setText(barcodeResult.getText() + "\nDescription: " + ac.getDescription(ac.getType(code)));
                         String description = ac.getDescription(ac.getType(code));
                         description = description.replace("\\n", "\r\n\t");
@@ -193,7 +192,6 @@ public class MainActivity extends AppCompatActivity {                        // 
         // call writeToRecycle("")
         // ac.writeToRecycle("test_plastic", "");
         ac.writeToRecycle(barcodeResultString, "");
-        Log.w("COW", "Number of recycled elements: " + ac.getRecycledElementsNumber());
         history_btn.setText(String.valueOf(ac.getRecycledElementsNumber()));
         ac.close("history");
     }

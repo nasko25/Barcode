@@ -2,7 +2,6 @@ package com.cre8.atanaspashov.barcode;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -32,12 +31,10 @@ public class SendASuggestion extends AsyncTask<String, Void, Void> {
 
             output.close();
             out.close();
-            Log.w("COW", "sent");
             socket.close();
         } catch (Exception e) {
             System.out.println("Could not establish a connection");
             System.out.println(e);
-            Log.w("COW", e);
             return null;
         }
         //

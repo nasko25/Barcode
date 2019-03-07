@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -88,7 +87,7 @@ public class AccessDatabase {
         cursor = BarcodeDatabase.rawQuery("SELECT description FROM type_of_material WHERE type = ?", new String[]{type});
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
-            String address = cursor.getString(0); Log.w("COW", "address " + cursor);
+            String address = cursor.getString(0);
             buffer.append("" + address);
         }
         return buffer.toString(); }
